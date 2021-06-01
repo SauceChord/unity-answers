@@ -11,19 +11,13 @@ namespace haccr
 
         void Start()
         {
-            spawnHooks();
+            SpawnHooks();
         }
 
-        void Update()
+        void SpawnHooks()
         {
-
-        }
-
-        void spawnHooks()
-        {
-            int nearby = 0;
             Collider2D[] collisions = Physics2D.OverlapCircleAll(player.position, range, mask);
-            nearby = collisions.Length;
+            int nearby = collisions.Length;
             int totalHooks = 3;
             for (int i = 0; i < totalHooks - nearby; i++)
             {
@@ -40,14 +34,14 @@ namespace haccr
                     if ((hookPos - player.position).magnitude < 3) safeArea = false;
                     if (safeArea)
                     {
-                        Instantiate(getHookType(), hookPos, Quaternion.identity);
+                        Instantiate(GetHookType(), hookPos, Quaternion.identity);
                         hasSpawned = true;
                     }
                 }
             }
         }
 
-        Object getHookType()
+        Object GetHookType()
         {
             return hook;
         }
