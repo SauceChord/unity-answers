@@ -23,7 +23,7 @@ namespace haccr
             {
                 bool hasSpawned = false;
                 bool safeArea = true;
-                while (!hasSpawned)
+                for (int tries = 0; tries < 10 && !hasSpawned; ++tries)
                 {
                     Vector3 hookPos = new Vector3(Random.Range(-range, range), Random.Range(-range, range), 0);
                     Collider2D[] nearbyHooks = Physics2D.OverlapCircleAll(hookPos, range, mask);
