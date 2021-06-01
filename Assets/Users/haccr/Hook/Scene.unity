@@ -156,8 +156,10 @@ MonoBehaviour:
   hook: {fileID: 8061224729072570243, guid: 825ed5a829ef18d41bc8f1467b5d1482, type: 3}
   mask:
     serializedVersion: 2
-    m_Bits: 0
-  range: 3
+    m_Bits: 4294967295
+  range: 2
+  collisionDistance: 2
+  spawnAttempts: 10
 --- !u!4 &49445002
 Transform:
   m_ObjectHideFlags: 0
