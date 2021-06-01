@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace haccr
 {
@@ -9,10 +10,24 @@ namespace haccr
         public LayerMask mask;
         public float range = 100f;
         public float collisionDistance = 3f;
-        public int spawnAttempts = 10;
-        void Start()
+        public int spawnAttempts = 16;
+        public Circle spawnCircle = new Circle(3f);
+
+        void Update()
         {
             SpawnHooks();
+        }
+
+        void OnDrawGizmosSelected()
+        {
+            for (int i = 0; i < spawnAttempts; ++i)
+            {
+                Vector3 from = spawnCircle.UnitToPoint((float)i / spawnAttempts);
+                Vector3 to = spawnCircle.UnitToPoint((float)(i + 1) / spawnAttempts);
+
+                Gizmos.DrawLine(from + transform.position, to + transform.position);
+                Gizmos.DrawWireSphere(from + transform.position, 0.1f);
+            }
         }
 
         void SpawnHooks()
@@ -25,7 +40,7 @@ namespace haccr
         int CountHooksToSpawn()
         {
             const int totalHooks = 3;
-            Collider2D[] collisions = Physics2D.OverlapCircleAll(player.position, range, mask);
+            Collider2D[] collisions = Physics2D.OverlapCircleAll(player.position, spawnCircle.radius, mask);
             int nearby = collisions.Length;
             int numHooksToSpawn = totalHooks - nearby;
             return numHooksToSpawn;
@@ -33,9 +48,12 @@ namespace haccr
 
         void AttemptToSpawnHook()
         {
-            for (int i = 0; i < spawnAttempts; ++i)
+            int[] spawnIndices = GetRandomSpawnIndices();
+            foreach (int i in spawnIndices)
             {
-                Vector3 hookPos = GetRandomPosition();
+                Vector3 hookPos = spawnCircle.UnitToPoint((float)i / spawnIndices.Length);
+                hookPos += transform.position;
+
                 if (!IsColliding(hookPos))
                 {
                     Instantiate(GetHookType(), hookPos, Quaternion.identity);
@@ -44,14 +62,17 @@ namespace haccr
             }
         }
 
-        Vector3 GetRandomPosition()
+        int[] GetRandomSpawnIndices()
         {
-            return new Vector3(Random.Range(-range, range), Random.Range(-range, range), 0);
+            return Enumerable
+                .Range(0, spawnAttempts)
+                .OrderBy(i => Random.Range(int.MinValue, int.MaxValue))
+                .ToArray();
         }
 
         bool IsColliding(Vector3 hookPos)
         {
-            return IsCollidingWithPhysics(hookPos) 
+            return IsCollidingWithPhysics(hookPos)
                 || IsCollidingWithPlayer(hookPos);
         }
 
@@ -63,11 +84,11 @@ namespace haccr
 
         bool IsCollidingWithPhysics(Vector3 hookPos)
         {
-            Collider2D[] nearbyHooks = Physics2D.OverlapCircleAll(hookPos, range, mask);
+            Collider2D[] nearbyHooks = Physics2D.OverlapCircleAll(hookPos, spawnCircle.radius, mask);
             foreach (Collider2D collision in nearbyHooks)
             {
                 Vector3 distance = hookPos - collision.transform.position;
-                if (distance.magnitude < collisionDistance) 
+                if (distance.magnitude < collisionDistance)
                     return true;
             }
             return false;

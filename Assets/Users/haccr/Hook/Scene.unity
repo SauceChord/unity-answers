@@ -123,57 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &49445000
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 49445002}
-  - component: {fileID: 49445001}
-  m_Layer: 0
-  m_Name: HookSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &49445001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49445000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af4047a278def934c9d8c8a40d701259, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 337038867}
-  hook: {fileID: 8061224729072570243, guid: 825ed5a829ef18d41bc8f1467b5d1482, type: 3}
-  mask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  range: 2
-  collisionDistance: 2
-  spawnAttempts: 10
---- !u!4 &49445002
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49445000}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &337038866
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 337038867}
   - component: {fileID: 337038868}
+  - component: {fileID: 337038869}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -256,6 +206,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &337038869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337038866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af4047a278def934c9d8c8a40d701259, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 337038867}
+  hook: {fileID: 8061224729072570243, guid: 825ed5a829ef18d41bc8f1467b5d1482, type: 3}
+  mask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  range: 2
+  collisionDistance: 2
+  spawnAttempts: 16
+  spawnCircle:
+    radius: 3
 --- !u!1 &405588953
 GameObject:
   m_ObjectHideFlags: 0
