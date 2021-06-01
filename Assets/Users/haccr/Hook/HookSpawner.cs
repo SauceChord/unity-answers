@@ -8,7 +8,6 @@ namespace haccr
         public Transform player;
         public GameObject hook;
         public LayerMask mask;
-        public float range = 100f;
         public float collisionDistance = 3f;
         public int spawnAttempts = 16;
         public Circle spawnCircle = new Circle(3f);
