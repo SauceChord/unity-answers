@@ -16,6 +16,7 @@
 
 # Extra files not covered by the answer
 *.meta eol=lf
+*.prefab eol=lf
 Packages/manifest.json eol=lf
 Packages/packages-lock.json eol=lf
 ProjectSettings/ProjectVersion.txt eol=lf
